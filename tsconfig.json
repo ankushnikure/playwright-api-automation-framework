@@ -9,17 +9,17 @@
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "outDir": "./dist",
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "types": ["node", "@playwright/test"],
         "paths": {
-            "@api/*": ["api/*"],
-            "@auth/*": ["auth/*"],
-            "@config/*": ["config/*"],
-            "@constants/*": ["constants/*"],
-            "@fixtures/*": ["fixtures/*"],
-            "@schemas/*": ["schemas/*"],
-            "@testdata/*": ["test-data/*"],
-            "@utils/*": ["utils/*"]
+            "@api/*": ["src/api/*"],
+            "@auth/*": ["src/auth/*"],
+            "@config/*": ["src/config/*"],
+            "@constants/*": ["src/constants/*"],
+            "@fixtures/*": ["src/fixtures/*"],
+            "@schemas/*": ["src/schemas/*"],
+            "@testdata/*": ["src/test-data/*"],
+            "@utils/*": ["src/utils/*"]
         }
     },
     "include": ["**/*.ts"],
