@@ -7,9 +7,9 @@ import {
 import { createTestBooking } from "@utils/booking-helper";
 import { Booking } from "@api/types/booking.types";
 
-test("Booking - Update Booking", async ({ apiClient, bookingClient, authToken }) => {
+test("Booking - Update Booking", async ({ apiClient, bookingService, authToken }) => {
 
-    const bookingId = await createTestBooking(bookingClient);
+    const bookingId = await createTestBooking(bookingService);
 
     console.log("Created Booking ID:", bookingId);
 
@@ -27,7 +27,7 @@ test("Booking - Update Booking", async ({ apiClient, bookingClient, authToken })
     updatePayload.lastname = generateUniqueValue("UpdatedDoe", updateTimestamp);
     updatePayload.additionalneeds = generateUniqueValue("Lunch", updateTimestamp);
 
-    const updateResponse = await bookingClient.updateBooking(
+    const updateResponse = await bookingService.updateBooking(
         bookingId,
         updatePayload,
         authToken

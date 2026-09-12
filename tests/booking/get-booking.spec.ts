@@ -10,14 +10,14 @@ const ajv = new Ajv();
 // Compile JSON schema
 const validateSchema = ajv.compile(bookingSchema);
 
-test("Booking - Get Booking", async ({ apiClient, bookingClient }) => {
+test("Booking - Get Booking", async ({ apiClient, bookingService }) => {
 
-    const bookingId = await createTestBooking(bookingClient)
+    const bookingId = await createTestBooking(bookingService)
 
     const startTime = Date.now();
 
-    // Send GET request through bookingClient to retrieve booking details
-    const getResponse = await bookingClient.getBooking(bookingId);
+    // Send GET request through bookingService to retrieve booking details
+    const getResponse = await bookingService.getBooking(bookingId);
 
     const responseTime = Date.now() - startTime;
 

@@ -1,9 +1,9 @@
 import { test, expect } from "@fixtures/api.fixture";
 import { createTestBooking } from "@utils/booking-helper";
 
-test("Booking - Delete Booking", async ({ bookingClient, authToken }) => {
+test("Booking - Delete Booking", async ({ bookingService, authToken }) => {
 
-    const bookingId = await createTestBooking(bookingClient);
+    const bookingId = await createTestBooking(bookingService);
 
     console.log("Created Booking ID:", bookingId);
 
@@ -11,7 +11,7 @@ test("Booking - Delete Booking", async ({ bookingClient, authToken }) => {
     // Delete Booking
     // -----------------------------
 
-    const deleteResponse = await bookingClient.deleteBooking(
+    const deleteResponse = await bookingService.deleteBooking(
         bookingId,
         authToken
     );
@@ -26,7 +26,7 @@ test("Booking - Delete Booking", async ({ bookingClient, authToken }) => {
     // Verify Deletion
     // -----------------------------
 
-    const getResponse = await bookingClient.getBooking(bookingId);
+    const getResponse = await bookingService.getBooking(bookingId);
 
     expect(getResponse.status()).toBe(404);
 

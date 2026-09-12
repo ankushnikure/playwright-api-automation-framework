@@ -1,12 +1,12 @@
 import { test as base } from "@playwright/test";
 import { ApiClient } from "@api/clients/api.client";
-import { BookingClient } from "@api/clients/booking.client";
+import { BookingService } from "@api/services/booking.service";
 import { getAuthToken } from "@auth/auth";
 
 // Define the objects that our custom test will provide
 type ApiFixtures = {
     apiClient: ApiClient;
-    bookingClient: BookingClient
+    bookingService: BookingService
     authToken: string;
 }
 
@@ -22,13 +22,13 @@ export const test = base.extend<ApiFixtures>({
         await use(apiClient);
     },
 
-    // Create BookingClient using our ApiClient fixture
-    bookingClient: async ({ apiClient }, use) => {
+    // Create BookingService using our ApiClient fixture
+    bookingService: async ({ apiClient }, use) => {
 
-        const bookingClient = new BookingClient(apiClient);
+        const bookingService = new BookingService(apiClient);
 
-        // Make BookingClient available to the test
-        await use(bookingClient);
+        // Make BookingService available to the test
+        await use(bookingService);
     },
 
     // Generate authentication token

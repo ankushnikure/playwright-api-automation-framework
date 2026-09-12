@@ -8,13 +8,13 @@ import {
 } from "@utils/test-data-generator";
 import { getAuthToken } from "@auth/auth";
 import { ApiClient } from "@api/clients/api.client";
-import { BookingClient } from "@api/clients/booking.client";
+import { BookingService } from "@api/services/booking.service";
 
 test('API Chaining - Create Booking', async ({ request }) => {
 
     // Initialize Services
     const apiClient = new ApiClient(request);
-    const bookingClient = new BookingClient(apiClient);
+    const bookingService = new BookingService(apiClient);
 
     const token = await getAuthToken(request);
     console.log("Auth Token:", token);
@@ -27,7 +27,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     createPayload.lastname = generateUniqueValue("Doe", timestamp);
     createPayload.additionalneeds = generateUniqueValue("Breakfast", timestamp);
 
-    const createResponse = await bookingClient.createBooking(createPayload);
+    const createResponse = await bookingService.createBooking(createPayload);
 
     expect(createResponse.status()).toBe(200);
 
@@ -43,7 +43,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     // --------------------
 
     // Retrieve the newly created booking using the bookingId returned by POST
-    const getResponse = await bookingClient.getBooking(bookingId);
+    const getResponse = await bookingService.getBooking(bookingId);
 
     expect(getResponse.status()).toBe(200);
 
@@ -71,7 +71,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     updatedPayload.lastname = generateUniqueValue("UpdatedDoe", updateTimestamp);
     updatedPayload.additionalneeds = generateUniqueValue("Lunch", updateTimestamp);
 
-    const updateResponse = await bookingClient.updateBooking(
+    const updateResponse = await bookingService.updateBooking(
         bookingId,
         updatedPayload,
         token
@@ -91,7 +91,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     // Verify Updated Booking (GET)
     // --------------------
 
-    const verifyUpdatedResponse = await bookingClient.getBooking(bookingId);
+    const verifyUpdatedResponse = await bookingService.getBooking(bookingId);
 
     expect(verifyUpdatedResponse.status()).toBe(200);
 
@@ -116,7 +116,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     patchPayload.firstname = generateUniqueValue("PatchedJohn", patchTimestamp);
     patchPayload.additionalneeds = generateUniqueValue("Dinner", patchTimestamp);
 
-    const patchResponse = await bookingClient.partialUpdateBooking(
+    const patchResponse = await bookingService.partialUpdateBooking(
         bookingId,
         patchPayload,
         token
@@ -140,7 +140,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     // Verify Patched Booking (GET)
     // --------------------
 
-    const verifyPatchedResponse = await bookingClient.getBooking(bookingId);
+    const verifyPatchedResponse = await bookingService.getBooking(bookingId);
 
     expect(verifyPatchedResponse.status()).toBe(200);
     const verifyPatchedBody = await verifyPatchedResponse.json();
@@ -156,7 +156,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     // DELETE Request
     // --------------------
 
-    const deleteResponse = await bookingClient.deleteBooking(
+    const deleteResponse = await bookingService.deleteBooking(
         bookingId,
         token
     )
@@ -168,7 +168,7 @@ test('API Chaining - Create Booking', async ({ request }) => {
     // Verify Booking Deletion (GET)
     // --------------------
 
-    const verifyDeleteResponse = await bookingClient.getBooking(bookingId);
+    const verifyDeleteResponse = await bookingService.getBooking(bookingId);
 
     expect(verifyDeleteResponse.status()).toBe(404);
     console.log("Verify Delete Response: Booking not found (404)");

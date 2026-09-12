@@ -6,7 +6,7 @@ import { Booking } from "@api/types/booking.types";
 import { COMMON_HEADERS } from "@constants/headers";
 import { ApiRequestOptions } from "@api/types/api-request.types";
 
-export class BookingClient {
+export class BookingService {
 
     constructor(private apiClient: ApiClient) { }
 

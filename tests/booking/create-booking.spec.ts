@@ -7,7 +7,7 @@ import { Booking, CreateBookingResponse } from "@api/types/booking.types";
 // Execute the same test with multiple datasets
 bookingData.forEach((data) => {
 
-    test(`Booking - Create Booking | ${data.testCase}`, async ({ apiClient, bookingClient }) => {
+    test(`Booking - Create Booking | ${data.testCase}`, async ({ apiClient, bookingService }) => {
 
         // Create a copy of the JSON payload and treat it as a Booking type
         // so TypeScript can validate the request payload structure
@@ -24,7 +24,7 @@ bookingData.forEach((data) => {
         createPayload.additionalneeds = generateUniqueValue(data.additionalneeds, timestamp);
 
         // Send POST request to create a booking
-        const response = await bookingClient.createBooking(createPayload);
+        const response = await bookingService.createBooking(createPayload);
 
         // Validate response status code
         expect(response.status()).toBe(data.expectedStatus);
